@@ -34,6 +34,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 
+/**
+ * The Class PatientController.
+ */
 @Slf4j
 //@CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -42,13 +45,22 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @Tag(name = "Patient", description = "Patient management APIs")
 public class PatientController extends GlobalExceptionHandler {
 
+	/** The service. */
 	private final PatientService service;
     
+    /**
+     * Test api.
+     */
     @GetMapping("/test")
     public void testApi () {
     	log.info("Test API....");
     }
 
+    /**
+     * Gets the all patients.
+     *
+     * @return the all patients
+     */
     @Operation(summary = "Get all patients", responses = {
             @ApiResponse(responseCode = "200", description = "Success")
         })
@@ -78,6 +90,12 @@ public class PatientController extends GlobalExceptionHandler {
         return responseList;
     }
 
+    /**
+     * Gets the patient by id.
+     *
+     * @param id the id
+     * @return the patient by id
+     */
     @Operation(summary = "Get patient by ID", responses = {
             @ApiResponse(responseCode = "200", description = "Success"),
             @ApiResponse(
@@ -109,6 +127,12 @@ public class PatientController extends GlobalExceptionHandler {
     	return ResponseEntity.ok(response);
     }
 
+    /**
+     * Creates the patient.
+     *
+     * @param CreatePatientRequest the create patient request
+     * @return the response entity
+     */
     @Operation(summary = "Create a new patient", responses = {
             @ApiResponse(responseCode = "201", description = "Patient created"),
             @ApiResponse(
@@ -131,6 +155,13 @@ public class PatientController extends GlobalExceptionHandler {
                 .body(createdPatient);
     }
 
+    /**
+     * Update patient.
+     *
+     * @param id the id
+     * @param updatePatientRequest the update patient request
+     * @return the response entity
+     */
     @Operation(summary = "Update patient by ID", responses = {
             @ApiResponse(responseCode = "200", description = "Patient updated"),
             @ApiResponse(responseCode = "404", description = "Patient not found")
@@ -143,6 +174,12 @@ public class PatientController extends GlobalExceptionHandler {
         return ResponseEntity.ok(service.updatePatient(id, updatePatientRequest));
     }
 
+    /**
+     * Delete patient.
+     *
+     * @param id the id
+     * @return the response entity
+     */
     @Operation(summary = "Delete patient by ID", responses = {
             @ApiResponse(responseCode = "204", description = "Patient deleted"),
             @ApiResponse(responseCode = "404", description = "Patient not found")
